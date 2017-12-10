@@ -1,3 +1,94 @@
+* {
+  box-sizing: border-box;
+  /*border: solid 2px red;*/
+}
+
 body {
-  background-color: red;
+  background-color: white;
+}
+
+p {
+  color: blue;
+}
+
+ul li {
+  display: inline-block;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+aside {
+  width: 200px;
+}
+
+.gameArea {
+  background-color: grey;
+  display: block;
+  width: 800px;
+  height: 500px;
+  position: relative;
+  border-color: green;
+}
+
+.playerArea {
+  background-color: yellow;
+  display: block;
+  width: 100px;
+  height: 400px;
+  position: absolute;
+  float: left;
+}
+
+.player {
+  background-color: orange;
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.foodArea {
+  background-color: pink;
+  display: block;
+  width: 700px;
+  height: 400px;
+  position: absolute;
+  margin-left: 100px;
+  float: right;
+}
+.food {
+  background-color: black;
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-left: 800px;
+}
+
+.avocado {
+  background-color: blue;
+}
+
+.potNoodle {
+  background-color: grey;
+}
+
+.bakedBeans {
+  background-color: dodgerBlue;
+}
+
+.left {
+  float: left;
+  border: solid 3px green;
+}
+
+.right {
+  float: right;
+  border: solid 3px green;
+}
+
+.scoreBoard {
+  border: solid 3px green;
 }
