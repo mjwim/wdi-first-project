@@ -1,11 +1,12 @@
 * {
   box-sizing: border-box;
   font-family: 'Poiret One', cursive;
+  color: white;
   /*border: solid 2px red;*/
 }
 
 body {
-  background-color: white;
+  background-color: #c6d47b;
 }
 
 main {
@@ -70,20 +71,22 @@ aside {
 }
 .food {
   background-color: black;
+  background-size: 100%;
   display: block;
   width: 100px;
   height: 100px;
-  left: 300px;
+  left: 600px;
   top: 200px;
   position: absolute;
+  border-radius: 10%;
 }
 
 .avocado {
-  background-color: #91a716;
+  background-image: url('/Users/matthewwallis/development/first-app/images/avocadoImage.jpg');
 }
 
 .bakedBeans {
-  background-color: orange;
+  background-image: url('/Users/matthewwallis/development/first-app/images/bakedBeansImage.jpg');
 }
 
 .left {

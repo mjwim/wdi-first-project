@@ -1,15 +1,14 @@
 $(() => {
 
-  // Food creation function - create random food objects randomly at random heights and at random intervals between, say 1-3 seconds;
-  //  object of food class {type: avocado, img: avocado, savings: -1000, health: +20}
-  //  object of food class {type: bakedBeans, img: bakedBeans, savings: -100, health: +5}
+  // Food creation function - Creating random food objects at random heights (option to add random interval?);
+  const $foodArea = $('.foodArea');
 
-  function Food(type, top, left, img, savings, health) {
+  function Food(type, top, savings, health) {
     if(!(this instanceof Food)) {
-      return new Food(type, top, left, img, savings, health);
+      return new Food(type, top, savings, health);
     }
     this.type = type;
-    this.css = {top: top, left: left, background: img};
+    this.css = {top: top};
     this.savings = savings;
     this.health = health;
     if(this.type === 'Avocado'){
@@ -21,43 +20,54 @@ $(() => {
 
   function createNewFood() {
     setInterval(function () {
-      const avocado = new Food('Avocado', Math.random()*300, 400, 'Avocado', -1000, 100);
-      const bakedBeans = new Food('Baked Beans', Math.random()*300, 400, 'Baked Beans', -100, 5);
+      const avocado = new Food('Avocado', Math.random()*300, -1500, 25);
+      const bakedBeans = new Food('Baked Beans', Math.random()*300, -100, 5);
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
       appendNewFood(newRandomFood);
-    }, 1000);
+    }, 1500);
   }
 
-
-  const $foodArea = $('.foodArea');
-
   function appendNewFood(newRandomFood) {
-    const appendedFood = newRandomFood;
-    console.log(appendedFood);
-    const top = newRandomFood.css.top;
-    console.log(top);
-    const $newFood = $('<div/>', {class: newRandomFood.class, css: {top: top, left: newRandomFood.css.left, background: newRandomFood.css.img}, savings: newRandomFood.savings, health: newRandomFood.health });
-    //const $newFood = $('<div/>', {class: 'food bakedBeans', css: {top: '200px', left: '600px'}});
+    const $newFood = $('<div/>', {class: newRandomFood.class, css: {top: newRandomFood.css.top}, 'data-savings': newRandomFood.savings, 'data-health': newRandomFood.health });
     $foodArea.append($newFood);
+    moveFood();
   }
 
   createNewFood();
-  appendNewFood();
 
   // food area functions
-
+  let $food = null;
   function moveFood() {
-    const $food = $('.food');
+    $food = $('.food');
     const leftFood = ($food.css('left'));
-    if (leftFood === '0px') {
-      $food.css('display', 'none');
+    if (leftFood <= '0px') {
+      collisionDetection(); //what should these arguments be
     }
     $food.animate({left: '-=10px'}, 50, 'swing', moveFood);
   }
 
-  moveFood();
+  //collision detection function
+
+  function collisionDetection() {
+    $food = $('.food');
+    const $player = $('.player');
+    console.log($food.data(top));
+    impactOnHealthAndSavings($food.data('health'), $food.data('savings'));
+    // if (player.x < food.x + food.width &&
+    //    player.x + player.width > food.x &&
+    //    player.y < food.y + food.height &&
+    //    player.height + player.y > food.y) {
+    //   console.log('collision detected!'); //send the Health and Savings values of the div to be removed to the health and savings rises functions
+    // }
+    removeFood();
+  }
+
+  function removeFood() {
+    const $foodArea = $('.foodArea');
+    $foodArea.find('div').first().remove();
+  }
 
   // scoreboard functions
 
@@ -66,25 +76,34 @@ $(() => {
   function housePriceRises() {
     const $housePrices = $('.housePrices');
     setInterval(function () {
-      housePrices += 1000;
+      housePrices += 2000;
       $housePrices.text(housePrices);
     }, 1000);
   }
 
-  let savings = 0;
+  function impactOnHealthAndSavings(h, s) {
+    const $savings = $('.savings');
+    let savings = parseInt($savings.text());
+    savings += s;
+    $savings.text(savings);
+    const $health = $('.health');
+    let health = parseInt($health.text());
+    health += h;
+    $health.text(health);
+  }
 
   function savingsRises() {
     const $savings = $('.savings');
+    let savings = parseInt($savings.text());
     setInterval(function () {
       savings += 500;
       $savings.text(savings);
     }, 1000);
   }
 
-  let health = 100;
-
   function healthFalls() {
     const $health = $('.health');
+    let health = parseInt($health.text());
     setInterval(function () {
       health -= 1;
       $health.text(health);
@@ -98,28 +117,27 @@ $(() => {
 
 });
 
-//collision dection function
-
-const $player = $('.player');
-const $food = $('.food');
-
-
-function collisionDetection(player , food) {
-  if (player.x < food.x + food.width &&
-     player.x + player.width > food.x &&
-     player.y < food.y + food.height &&
-     player.height + player.y > food.y) {
-    console.log('collision detected!');
-  }
-  // on collision need to send variables to savings and health functions depending
-  // on food type. Avocado will send bigger -ve to savings but bigger +ve to health
-}
-
-collisionDetection($player , $food);
-
 
 // player area functions
-// player move up and down with UP and DOWN eys
+
+// player move up and down with UP and DOWN keys - Need to stop it from exiting area
+
+$(document).keydown(function(e) {
+  switch (e.which) {
+    case 38:
+      $('.player').stop().animate({
+        top: '-=50'
+      }); //up arrow key
+      break;
+    case 40:
+      $('.player').stop().animate({
+        top: '+=50'
+      }); //bottom arrow key
+      break;
+  }
+});
+
+
 
 // scrolling time bar function - years pass across the top from right to left
 
