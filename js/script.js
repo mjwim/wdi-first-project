@@ -39,6 +39,7 @@ $(() => {
 
   // food area functions
   let $food = null;
+
   function moveFood() {
     $food = $('.food');
     const leftFood = ($food.css('left'));
@@ -53,15 +54,18 @@ $(() => {
   function collisionDetection() {
     $food = $('.food');
     const $player = $('.player');
-    console.log($food.data(top));
-    impactOnHealthAndSavings($food.data('health'), $food.data('savings'));
-    // if (player.x < food.x + food.width &&
-    //    player.x + player.width > food.x &&
-    //    player.y < food.y + food.height &&
-    //    player.height + player.y > food.y) {
-    //   console.log('collision detected!'); //send the Health and Savings values of the div to be removed to the health and savings rises functions
-    // }
+    const $foodOffset = $food.offset();
+    const $playerOffset = $player.offset();
+
+    if ($foodOffset.left <= $playerOffset.left + $player.width() &&
+       $foodOffset.left + $food.width() >= $playerOffset.left &&
+       $foodOffset.top < $playerOffset.top + $player.height() &&
+       $food.height() + $foodOffset.top > $playerOffset.top) {
+      console.log('collision detected!');
+      impactOnHealthAndSavings($food.data('health'), $food.data('savings')); //sends the Health and Savings values of the div to be removed to the health and savings rises functions
+    }
     removeFood();
+    console.log('removefood');
   }
 
   function removeFood() {
@@ -96,9 +100,10 @@ $(() => {
     const $savings = $('.savings');
     let savings = parseInt($savings.text());
     setInterval(function () {
-      savings += 500;
+      savings += 5;
       $savings.text(savings);
-    }, 1000);
+      winSavings(savings);
+    }, 20);
   }
 
   function healthFalls() {
@@ -107,6 +112,7 @@ $(() => {
     setInterval(function () {
       health -= 1;
       $health.text(health);
+      loseHealth(health);
     }, 1000);
   }
 
@@ -147,3 +153,17 @@ $(document).keydown(function(e) {
 // 2% adds a square, 4% adds door, 6% bottom windows, 8% top windows, 10% roof
 
 // win/lose functions - if savings = 10% of house prices you win. If health goes to zero you lose (which automatically happens in 2100) - Your score is the year in which you get to 10%.
+
+function loseHealth(health) {
+  if (health <= 0) {
+    alert('you lose');
+  }
+}
+
+function winSavings(savings) {
+  const $housePrices = $('.housePrices');
+  const housePrices = (parseInt($housePrices.text()));
+  if (savings >= 0.1*housePrices) {
+    console.log('you win');
+  }
+}
