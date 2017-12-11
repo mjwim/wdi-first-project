@@ -1,11 +1,11 @@
 $(() => {
 
   // Food creation function - create random food objects randomly at random heights and at random intervals between, say 1-3 seconds;
-  //  object of food class {type: avocado, savings: -1000, health: +20}
-  //  object of food class {type: potNoodle, savings: -100, health: +5}
-  //  object of food class {type: bakedBeans, savings: -100, health: +5}
+  //  object of food class {type: avocado, img: avocado, savings: -1000, health: +20}
+  //  object of food class {type: potNoodle, img: potNoodle, savings: -100, health: +5}
+  //  object of food class {type: bakedBeans, img: bakedBeans, savings: -100, health: +5}
 
-  const foodArray = [{type: 'avocado' , savings: '-100' , health: '20' }, {type: 'bakedBeans' , savings: '-10' , health: '5' }];
+  const foodArray = [{type: 'avocado' , img: 'avocado', savings: '-100' , health: '20' }, {type: 'bakedBeans' , img: 'bakedBeans', savings: '-10' , health: '5' }];
 
   console.log(foodArray);
 
