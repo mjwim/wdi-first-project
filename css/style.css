@@ -8,6 +8,14 @@ body {
   background-color: white;
 }
 
+main {
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
 p {
   color: blue;
 }
@@ -44,7 +52,7 @@ aside {
 }
 
 .player {
-  background-color: orange;
+  background-color: dodgerblue;
   display: block;
   width: 100px;
   height: 100px;
@@ -65,19 +73,17 @@ aside {
   display: block;
   width: 100px;
   height: 100px;
-  margin-left: 800px;
+  left: 300px;
+  top: 200px;
+  position: absolute;
 }
 
 .avocado {
-  background-color: blue;
-}
-
-.potNoodle {
-  background-color: grey;
+  background-color: #91a716;
 }
 
 .bakedBeans {
-  background-color: dodgerBlue;
+  background-color: orange;
 }
 
 .left {

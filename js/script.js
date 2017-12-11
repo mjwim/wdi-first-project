@@ -2,39 +2,61 @@ $(() => {
 
   // Food creation function - create random food objects randomly at random heights and at random intervals between, say 1-3 seconds;
   //  object of food class {type: avocado, img: avocado, savings: -1000, health: +20}
-  //  object of food class {type: potNoodle, img: potNoodle, savings: -100, health: +5}
   //  object of food class {type: bakedBeans, img: bakedBeans, savings: -100, health: +5}
 
-  const foodArray = [{type: 'avocado' , img: 'avocado', savings: '-100' , health: '20' }, {type: 'bakedBeans' , img: 'bakedBeans', savings: '-10' , health: '5' }];
+  function Food(type, top, left, img, savings, health) {
+    if(!(this instanceof Food)) {
+      return new Food(type, top, left, img, savings, health);
+    }
+    this.type = type;
+    this.css = {top: top, left: left, background: img};
+    this.savings = savings;
+    this.health = health;
+    if(this.type === 'Avocado'){
+      this.class = 'food avocado';
+    } else if(this.type === 'Baked Beans'){
+      this.class = 'food bakedBeans';
+    }
+  }
 
-  console.log(foodArray);
-
-  const $foodArea = $('.foodArea');
-
-  function newFood() {
+  function createNewFood() {
     setInterval(function () {
-      const randomNumber = (Math.floor(Math.random()*(foodArray.length)));
-      const newRandomFood = foodArray[randomNumber];
-      const $newFood = $('<div>', {newRandomFood});
-      console.log($newFood);
-      $foodArea.append($newFood);
+      const avocado = new Food('Avocado', Math.random()*300, 400, 'Avocado', -1000, 100);
+      const bakedBeans = new Food('Baked Beans', Math.random()*300, 400, 'Baked Beans', -100, 5);
+      const foodOptionsArray = [avocado, bakedBeans];
+      const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
+      const newRandomFood = foodOptionsArray[randomNumber];
+      appendNewFood(newRandomFood);
     }, 1000);
   }
 
-  newFood();
+
+  const $foodArea = $('.foodArea');
+
+  function appendNewFood(newRandomFood) {
+    const appendedFood = newRandomFood;
+    console.log(appendedFood);
+    const top = newRandomFood.css.top;
+    console.log(top);
+    const $newFood = $('<div/>', {class: newRandomFood.class, css: {top: top, left: newRandomFood.css.left, background: newRandomFood.css.img}, savings: newRandomFood.savings, health: newRandomFood.health });
+    //const $newFood = $('<div/>', {class: 'food bakedBeans', css: {top: '200px', left: '600px'}});
+    $foodArea.append($newFood);
+  }
+
+  createNewFood();
+  appendNewFood();
 
   // food area functions
 
-  const $food = $('.food');
-
   function moveFood() {
-
-    const marginFood = ($food.css('marginLeft'));
-    if (marginFood === '0px') {
+    const $food = $('.food');
+    const leftFood = ($food.css('left'));
+    if (leftFood === '0px') {
       $food.css('display', 'none');
     }
-    $food.animate({marginLeft: '-=10px'}, 50, 'swing', moveFood);
+    $food.animate({left: '-=10px'}, 50, 'swing', moveFood);
   }
+
   moveFood();
 
   // scoreboard functions
@@ -80,7 +102,6 @@ $(() => {
 
 const $player = $('.player');
 const $food = $('.food');
-console.log($player);
 
 
 function collisionDetection(player , food) {
