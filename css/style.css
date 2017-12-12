@@ -2,7 +2,7 @@
   box-sizing: border-box;
   font-family: 'Poiret One', cursive;
   color: white;
-  border: solid 2px red;
+  /*border: solid 2px red;*/
 }
 
 body {
@@ -58,16 +58,16 @@ button {
 }
 
 .playerArea {
-  background-color: white;
+  background-color: #f1d0e9;
   display: block;
   width: 100px;
-  height: 400px;
+  height: 500px;
   position: absolute;
   float: left;
 }
 
 .player {
-  background-color: white;
+  background-color: #f1d0e9;
   display: block;
   width: 100px;
   height: 100px;
@@ -75,10 +75,10 @@ button {
 }
 
 .foodArea {
-  background-color: white;
+  background-color: #f9dcae;
   display: block;
   width: 700px;
-  height: 400px;
+  height: 500px;
   position: absolute;
   margin-left: 100px;
   float: right;
@@ -95,11 +95,13 @@ button {
 }
 
 .avocado {
-  background-image: url('/Users/matthewwallis/development/first-app/images/avocadoImage.jpg');
+  background-image: url('/Users/matthewwallis/development/first-app/images/avocadoImage.png');
+  background-color: inherit;
 }
 
 .bakedBeans {
-  background-image: url('/Users/matthewwallis/development/first-app/images/bakedBeansImage.jpg');
+  background-image: url('/Users/matthewwallis/development/first-app/images/bakedBeansImage.png');
+  background-color: inherit;
 }
 
 .left {

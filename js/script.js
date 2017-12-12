@@ -1,5 +1,7 @@
 $(() => {
 
+  let gameOver = false;
+
   $('button').click(function() {
     createNewFood();
     yearCounter();
@@ -27,13 +29,14 @@ $(() => {
   }
 
   function createNewFood() {
-    setInterval(function () {
+    const timer = setInterval(function () {
       const avocado = new Food('Avocado', Math.random()*300, -1500, 25);
       const bakedBeans = new Food('Baked Beans', Math.random()*300, -100, 5);
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
       appendNewFood(newRandomFood);
+      clear(timer);
     }, 1500);
   }
 
@@ -115,30 +118,33 @@ $(() => {
 
   function housePriceRises() {
     const $housePrices = $('.housePrices');
-    setInterval(function () {
+    const timer = setInterval(function () {
       housePrices += 1000;
       $housePrices.text(housePrices);
+      clear(timer);
     }, 500);
   }
 
   function savingsRises() {
     const $savings = $('.savings');
     let savings = parseInt($savings.text());
-    setInterval(function () {
+    const timer = setInterval(function () {
       savings += 100;
       $savings.text(savings);
       houseChanging(savings);
       winSavings(savings);
+      clear(timer);
     }, 100);
   }
 
   function healthFalls() {
     const $health = $('.health');
     let health = parseInt($health.text());
-    setInterval(function () {
+    const timer = setInterval(function () {
       health -= 1;
       $health.text(health);
       loseHealth(health);
+      clear(timer);
     }, 1000);
   }
 
@@ -175,16 +181,18 @@ $(() => {
   function yearCounter() {
     const $year = $('.year');
     let year = parseInt(($year.text()));
-    setInterval(function () {
+    const timer = setInterval(function () {
       year++;
       $year.text(year);
+      clear(timer);
     }, 5000);
   }
 
   function loseHealth(health) {
     if (health <= 0) {
-      console.log('you lose');
-      endGame();
+      alert('you lose');
+      gameOver = true;
+      reset();
     }
   }
 
@@ -194,9 +202,10 @@ $(() => {
     const $year = $('.year');
     const year = $year.text();
     if (savings >= 0.1*housePrices) {
-      console.log(`You win, score = ${year}`);
+      gameOver = true;
+      alert(`You win, score = ${year}`);
       updateHighScores(year);
-      endGame();
+      reset();
     }
   }
 
@@ -205,9 +214,10 @@ $(() => {
     $highScore.text(year);
   }
 
-  function endGame() {
-    //STOP ALL FUNCTIONS AND RESET
-    reset();
+  function clear(timer) {
+    if (gameOver) {
+      clearInterval(timer);
+    }
   }
 
   function reset() {
