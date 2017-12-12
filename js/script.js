@@ -1,7 +1,19 @@
 $(() => {
 
-  let gameOver = false;
+  let gameOver = null;
+  let $food = null; //this is needed as the moveFood function needs to check what the foodArea div contains (which is all the food elements) or something like that...
 
+  const $instructions = $('.instructions');
+  const $year = $('.year');
+  const $housePrices = $('.housePrices');
+  const $savings = $('.savings');
+  const $health = $('.health');
+  const $foodArea = $('.foodArea');
+  const $house = $('.house');
+  let savings = 1000;
+  let housePrices = 100000;
+  let health = 100;
+  let year = 2017;
 
 
   function updateName() {
@@ -13,22 +25,16 @@ $(() => {
     $playerName.text(playerName + ': ');
   }
 
-  $('button').on('click', function(){
-    const $instructions = $('.instructions');
+  $('button').on('click', function() {
+    gameOver = false;
     $instructions.addClass('hide');
     updateName();
-  });
-
-  $('button').on('click', function() {
     createNewFood();
     yearCounter();
     housePriceRises();
     savingsRises();
     healthFalls();
   });
-
-  // Food creation function - Creating random food objects at random heights (option to add random interval?);
-  const $foodArea = $('.foodArea');
 
   function Food(type, top, savings, health) {
     if(!(this instanceof Food)) {
@@ -52,25 +58,23 @@ $(() => {
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
-      appendNewFood(newRandomFood);
       clear(timer);
+      appendNewFood(newRandomFood);
     }, 1500);
   }
 
   function appendNewFood(newRandomFood) {
-    const $newFood = $('<div/>', {class: newRandomFood.class, css: {top: newRandomFood.css.top}, 'data-savings': newRandomFood.savings, 'data-health': newRandomFood.health });
-    $foodArea.append($newFood);
+    const newFood = $('<div/>', {class: newRandomFood.class, css: {top: newRandomFood.css.top}, 'data-savings': newRandomFood.savings, 'data-health': newRandomFood.health });
+    $foodArea.append(newFood);
     moveFood();
   }
 
   // food area functions
-  let $food = null;
-
   function moveFood() {
     $food = $('.food');
     const leftFood = ($food.css('left'));
     if (leftFood <= '0px') {
-      collisionDetection(); //what should these arguments be
+      collisionDetection();
     }
     $food.animate({left: '-=10px'}, 50, 'swing', moveFood);
   }
@@ -114,9 +118,6 @@ $(() => {
   // house changing functions
 
   function houseChanging(savings) {
-    const $house = $('.house');
-    const $housePrices = $('.housePrices');
-    const housePrices = (parseInt($housePrices.text()));
     if (savings >= 0.1*housePrices) {
       $house.css('font-size', '650%');
     } else if (savings >= 0.75*0.1*housePrices) {
@@ -128,15 +129,10 @@ $(() => {
     }
   }
 
-
   // scoreboard functions
 
-  let housePrices = 100000;
-
   function housePriceRises() {
-    const $housePrices = $('.housePrices');
     const timer = setInterval(function () {
-      clear(timer);
       housePrices += 200;
       $housePrices.text(housePrices);
       clear(timer);
@@ -144,10 +140,7 @@ $(() => {
   }
 
   function savingsRises() {
-    const $savings = $('.savings');
-    let savings = parseInt($savings.text());
     const timer = setInterval(function () {
-      clear(timer);
       savings += 100;
       $savings.text(savings);
       houseChanging(savings);
@@ -157,31 +150,28 @@ $(() => {
   }
 
   function healthFalls() {
-    const $health = $('.health');
-    let health = parseInt($health.text());
     const timer = setInterval(function () {
-      clear(timer);
-      health -= 1;
-      $health.text(health);
-      loseHealth(health);
+      let healthNew = health;
+      healthNew--;
+      $health.text(healthNew);
+      loseHealth(healthNew);
+      health = healthNew;
       clear(timer);
     }, 1000);
   }
 
   function impactOnHealthAndSavings(h, s) {
-    const $savings = $('.savings');
-    let savings = parseInt($savings.text());
     savings += s;
     $savings.text(savings);
-    const $health = $('.health');
-    let health = parseInt($health.text());
-    health += h;
+    let healthNew = health;
+    healthNew += h;
     let healthMax = null;
-    if (health < 100) {
-      healthMax = health;
+    if (healthNew < 100) {
+      healthMax = healthNew;
     } else {
       healthMax = 100;
     }
+    health = healthMax;
     $health.text(healthMax);
   }
 
@@ -205,10 +195,8 @@ $(() => {
   });
 
   function yearCounter() {
-    const $year = $('.year');
-    let year = parseInt(($year.text()));
     const timer = setInterval(function () {
-      year++;
+      year += 1;
       $year.text(year);
       clear(timer);
     }, 1000);
@@ -217,20 +205,18 @@ $(() => {
   function loseHealth(health) {
     if (health <= 0) {
       gameOver = true;
-      alert('you lose');
+      console.log('you lose');
       reset();
     }
   }
 
   function winSavings(savings) {
-    const $housePrices = $('.housePrices');
-    const housePrices = (parseInt($housePrices.text()));
     const $year = $('.year');
     const year = $year.text();
     if (savings >= 0.1*housePrices) {
       gameOver = true;
       updateHighScores(year);
-      alert(`You win, score = ${year}`);
+      console.log(`You win, score = ${year}`);
       reset();
     }
   }
@@ -247,15 +233,15 @@ $(() => {
   }
 
   function reset() {
-    const $foodArea = $('.foodArea');
     $foodArea.empty();
-    const $housePrices = $('.housePrices');
-    $housePrices.text(100000);
-    const $savings = $('.savings');
-    $savings.text(1000);
-    const $health = $('.health');
-    $health.text(100);
-    const $instructions = $('.instructions');
+    housePrices = 100000;
+    $housePrices.text(housePrices);
+    savings = 1000;
+    $savings.text(savings);
+    health = 100;
+    $health.text(health);
+    year = 2017;
+    $year.text(health);
     $instructions.removeClass('hide');
   }
 
