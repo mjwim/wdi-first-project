@@ -1,5 +1,13 @@
 $(() => {
 
+  $('button').click(function() {
+    createNewFood();
+    yearCounter();
+    housePriceRises();
+    savingsRises();
+    healthFalls();
+  });
+
   // Food creation function - Creating random food objects at random heights (option to add random interval?);
   const $foodArea = $('.foodArea');
 
@@ -35,8 +43,6 @@ $(() => {
     moveFood();
   }
 
-  createNewFood();
-
   // food area functions
   let $food = null;
 
@@ -65,7 +71,6 @@ $(() => {
       facesEating();
     }
     removeFood();
-    console.log('removefood');
   }
 
   function removeFood() {
@@ -94,19 +99,14 @@ $(() => {
     const housePrices = (parseInt($housePrices.text()));
     if (savings >= 0.1*housePrices) {
       $house.css('font-size', '650%');
-      console.log('1');
     } else if (savings >= 0.75*0.1*housePrices) {
       $house.css('font-size', '500%');
-      console.log('2');
     } else if (savings >= 0.5*0.1*housePrices) {
       $house.css('font-size', '300%');
-      console.log('3');
     } else if (savings === 0.25*0.1*housePrices) {
       $house.css('font-size', '150%');
-      console.log('4');
     }
   }
-
 
 
   // scoreboard functions
@@ -116,8 +116,29 @@ $(() => {
   function housePriceRises() {
     const $housePrices = $('.housePrices');
     setInterval(function () {
-      housePrices += 2000;
+      housePrices += 1000;
       $housePrices.text(housePrices);
+    }, 500);
+  }
+
+  function savingsRises() {
+    const $savings = $('.savings');
+    let savings = parseInt($savings.text());
+    setInterval(function () {
+      savings += 100;
+      $savings.text(savings);
+      houseChanging(savings);
+      winSavings(savings);
+    }, 100);
+  }
+
+  function healthFalls() {
+    const $health = $('.health');
+    let health = parseInt($health.text());
+    setInterval(function () {
+      health -= 1;
+      $health.text(health);
+      loseHealth(health);
     }, 1000);
   }
 
@@ -132,76 +153,65 @@ $(() => {
     $health.text(health);
   }
 
-  function savingsRises() {
-    const $savings = $('.savings');
-    let savings = parseInt($savings.text());
-    setInterval(function () {
-      savings += 20;
-      $savings.text(savings);
-      houseChanging(savings);
-      winSavings(savings);
+  // player area functions
 
-    }, 20);
+  // player move up and down with UP and DOWN keys - Need to stop it from exiting area
+
+  $(document).keydown(function(e) {
+    switch (e.which) {
+      case 38:
+        $('.player').stop().animate({
+          top: '-=50'
+        }); //up arrow key
+        break;
+      case 40:
+        $('.player').stop().animate({
+          top: '+=50'
+        }); //bottom arrow key
+        break;
+    }
+  });
+
+  function yearCounter() {
+    const $year = $('.year');
+    let year = parseInt(($year.text()));
+    setInterval(function () {
+      year++;
+      $year.text(year);
+    }, 5000);
   }
 
-  function healthFalls() {
-    const $health = $('.health');
-    let health = parseInt($health.text());
-    setInterval(function () {
-      health -= 1;
-      $health.text(health);
-      loseHealth(health);
-    }, 1000);
+  function loseHealth(health) {
+    if (health <= 0) {
+      console.log('you lose');
+      endGame();
+    }
   }
 
-  housePriceRises();
-  savingsRises();
-  healthFalls();
+  function winSavings(savings) {
+    const $housePrices = $('.housePrices');
+    const housePrices = (parseInt($housePrices.text()));
+    const $year = $('.year');
+    const year = $year.text();
+    if (savings >= 0.1*housePrices) {
+      console.log(`You win, score = ${year}`);
+      updateHighScores(year);
+      endGame();
+    }
+  }
 
+  function updateHighScores(year) {
+    const $highScore = $('.highScore');
+    $highScore.text(year);
+  }
+
+  function endGame() {
+    //STOP ALL FUNCTIONS AND RESET
+    reset();
+  }
+
+  function reset() {
+    //empty divs and arrays and year and return savings, house prices to zero and health to 100%;
+  }
 
 });
-
-
-// player area functions
-
-// player move up and down with UP and DOWN keys - Need to stop it from exiting area
-
-$(document).keydown(function(e) {
-  switch (e.which) {
-    case 38:
-      $('.player').stop().animate({
-        top: '-=50'
-      }); //up arrow key
-      break;
-    case 40:
-      $('.player').stop().animate({
-        top: '+=50'
-      }); //bottom arrow key
-      break;
-  }
-});
-
-
-
-// scrolling time bar function - years pass across the top from right to left
-
-// player image functions - as every 15ish years pass, your image changes to an older one.
-
-// house building functions - every increase of 2% towards 10% savings/ house prie ratio
-// 2% adds a square, 4% adds door, 6% bottom windows, 8% top windows, 10% roof
-
-// win/lose functions - if savings = 10% of house prices you win. If health goes to zero you lose (which automatically happens in 2100) - Your score is the year in which you get to 10%.
-
-function loseHealth(health) {
-  if (health <= 0) {
-    alert('you lose');
-  }
-}
-
-function winSavings(savings) {
-  const $housePrices = $('.housePrices');
-  const housePrices = (parseInt($housePrices.text()));
-  if (savings >= 0.1*housePrices) {
-    console.log('you win');
-  }
-}
