@@ -20,11 +20,29 @@ main {
 h1 {
   text-align: center;
   font-size: 350%;
+  color: #e6e2e2;
+}
+h2 {
+  text-align: center;
+  margin: 2%;
+}
+
+h3 {
+  color: #e6e2e2;
+  font-weight: bold;
+  font-size: 125%;
+  padding: 2px;
+  margin: 1%;
+  text-align: center;
 }
 
 p {
   color: white;
   font-weight: bold;
+  font-size: 100%;
+  padding: 2px;
+  margin: 1%;
+  text-align: center;
 }
 
 ul li {
@@ -43,9 +61,10 @@ aside {
 
 button {
   background: green;
-  border-radius: 10%;
-  float:  right;
-  font-size: 200%;
+  font-size: 100%;
+  width: 23%;
+  padding: 0;
+  height: 40px;
 }
 
 .gameArea {
@@ -58,7 +77,7 @@ button {
 }
 
 .playerArea {
-  background-color: #f1d0e9;
+  background-color: #f9dcae;
   display: block;
   width: 100px;
   height: 500px;
@@ -67,7 +86,7 @@ button {
 }
 
 .player {
-  background-color: #f1d0e9;
+  background-color: inherit;
   display: block;
   width: 100px;
   height: 100px;
@@ -112,10 +131,19 @@ button {
 .right {
   float: right;
   border: solid 3px green;
+  width: 25%;
 }
 
-.scoreBoard {
-  border: solid 3px green;
+.scoreboard {
+  border: solid 1px green;
+}
+
+.houseBuilder {
+  border: solid 1px green;
+}
+
+.scores {
+  border: solid 1px green;
 }
 
 .faces {
@@ -125,4 +153,51 @@ button {
 .house {
   font-size: 50%;
   text-align: center;
+  height: 120px;
+}
+
+.copyright{
+  float: right;
+}
+
+.instructions {
+  position: absolute;
+  margin: 0 auto;
+  top: 15%;
+  left: 15%;
+  height: 70%;
+  width: 70%;
+  border: solid 5px green;
+  background-color: #e9f1c3;
+  color: grey;
+  text-align: center;
+  font-size: 250%;
+  font-weight: bold;
+  padding: 2%;
+}
+
+p.instructionsDetail {
+  color: grey;
+  text-align: center;
+  font-size: 75%;
+  font-weight: normal;
+}
+
+
+.hide {
+  display: none;
+}
+
+.playerName {
+  color: #e6e2e2;
+}
+
+.levels {
+  height: 50px;
+}
+
+.start {
+  position: absolute;
+  left: 40%;
+  bottom: 5%;
 }

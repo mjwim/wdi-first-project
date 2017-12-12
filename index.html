@@ -12,14 +12,6 @@
     <header>
       <h1>Avocado or House?</h1>
     </header>
-    <nav>
-<ul>
-  <li>Instructions</li>
-  <li>Backstory</li>
-  <li>Best Scores</li>
-  <button type="button" name="start">Start</button>
-</ul>
-    </nav>
 <main>
   <section class="left">
       <div class="gameArea">
@@ -33,28 +25,46 @@
   </section>
   <aside class="right">
 <div class="scoreboard">
+  <div class="scores">
+    <h2>Score</h2>
+    <p> <span class='playerName'>Player X: </span><span class="highScore"></span></p>
+  </div>
   <h2>Scoreboard</h2>
-  <p>House prices: £<span class="housePrices">100000</span></p>
-<p>Savings: £<span class="savings">1000</span></p>
-<p>Health: <span class="health">100</span>%</p>
-<p>Year: <span class="year">2017</span>
+  <h3>House prices 🏠</h3>
+  <p>£ <span class="housePrices">100000</span></p>
+<h3>Savings 💷 </h3>
+<p>£<span class="savings">1000</span></p>
+<h3>Health ❤️:</h3>
+<p><span class="health">100</span>%</p>
+<h3>Year 📅:</h3>
+<p class="year">2017</p>
 </div>
 <div class="houseBuilder">
-  <h2>House</h2>
+  <h2></h2>
   <div class="house">🏠</div>
 </div>
-<div class="scores">
-  <h2>Scores - LOCAL STORAGE</h2>
-  <p>Player X: <span class="highScore"></span></p>
-  <p>Player Y: <span class="highScore1"></span></p>
-</div>
 </aside>
+<div class="instructions">
+    Instructions
+    <p class="instructionsDetail">save for a deposit
+    Try to avoid the avocado </br> </br>
+    but you still need to eat </br> </br>
+    Enter your name and pick your level to start </br> </br>
+</p>
+<input type="text" placeholder="name">
+<div class="levels">
+<button type="button" class="easy" name="easy">Easy</button>
+<button type="button" class="medium" name="medium">Medium</button>
+<button type="button" class="hard" name="hard">Hard</button>
+<button type="button" class="reality" name="reality">Reality</button>
+</div>
+</div>
 </main>
 <footer>
   <ul>
     <li>About</li>
     <li>Terms & Conditions</li>
-    <li>2017</li>
+    <li class='copyright'>©️ 2017</li>
   </ul>
 </footer>
   </body>

@@ -2,7 +2,24 @@ $(() => {
 
   let gameOver = false;
 
-  $('button').click(function() {
+
+
+  function updateName() {
+    let playerName = prompt('What is your name?');
+    const $playerName = $('.playerName');
+    if (!playerName) {
+      playerName = 'Anonymous';
+    }
+    $playerName.text(playerName + ': ');
+  }
+
+  $('button').on('click', function(){
+    const $instructions = $('.instructions');
+    $instructions.addClass('hide');
+    updateName();
+  });
+
+  $('button').on('click', function() {
     createNewFood();
     yearCounter();
     housePriceRises();
@@ -119,16 +136,18 @@ $(() => {
   function housePriceRises() {
     const $housePrices = $('.housePrices');
     const timer = setInterval(function () {
-      housePrices += 1000;
+      clear(timer);
+      housePrices += 200;
       $housePrices.text(housePrices);
       clear(timer);
-    }, 500);
+    }, 100);
   }
 
   function savingsRises() {
     const $savings = $('.savings');
     let savings = parseInt($savings.text());
     const timer = setInterval(function () {
+      clear(timer);
       savings += 100;
       $savings.text(savings);
       houseChanging(savings);
@@ -141,6 +160,7 @@ $(() => {
     const $health = $('.health');
     let health = parseInt($health.text());
     const timer = setInterval(function () {
+      clear(timer);
       health -= 1;
       $health.text(health);
       loseHealth(health);
@@ -156,7 +176,13 @@ $(() => {
     const $health = $('.health');
     let health = parseInt($health.text());
     health += h;
-    $health.text(health);
+    let healthMax = null;
+    if (health < 100) {
+      healthMax = health;
+    } else {
+      healthMax = 100;
+    }
+    $health.text(healthMax);
   }
 
   // player area functions
@@ -185,13 +211,13 @@ $(() => {
       year++;
       $year.text(year);
       clear(timer);
-    }, 5000);
+    }, 1000);
   }
 
   function loseHealth(health) {
     if (health <= 0) {
-      alert('you lose');
       gameOver = true;
+      alert('you lose');
       reset();
     }
   }
@@ -203,8 +229,8 @@ $(() => {
     const year = $year.text();
     if (savings >= 0.1*housePrices) {
       gameOver = true;
-      alert(`You win, score = ${year}`);
       updateHighScores(year);
+      alert(`You win, score = ${year}`);
       reset();
     }
   }
@@ -221,7 +247,16 @@ $(() => {
   }
 
   function reset() {
-    //empty divs and arrays and year and return savings, house prices to zero and health to 100%;
+    const $foodArea = $('.foodArea');
+    $foodArea.empty();
+    const $housePrices = $('.housePrices');
+    $housePrices.text(100000);
+    const $savings = $('.savings');
+    $savings.text(1000);
+    const $health = $('.health');
+    $health.text(100);
+    const $instructions = $('.instructions');
+    $instructions.removeClass('hide');
   }
 
 });
