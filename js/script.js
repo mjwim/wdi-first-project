@@ -61,8 +61,8 @@ $(() => {
        $foodOffset.left + $food.width() >= $playerOffset.left &&
        $foodOffset.top < $playerOffset.top + $player.height() &&
        $food.height() + $foodOffset.top > $playerOffset.top) {
-      console.log('collision detected!');
-      impactOnHealthAndSavings($food.data('health'), $food.data('savings')); //sends the Health and Savings values of the div to be removed to the health and savings rises functions
+      impactOnHealthAndSavings($food.data('health'), $food.data('savings'));
+      facesEating();
     }
     removeFood();
     console.log('removefood');
@@ -72,6 +72,42 @@ $(() => {
     const $foodArea = $('.foodArea');
     $foodArea.find('div').first().remove();
   }
+
+  //face changing functions
+
+  function facesEating() {
+    const $faces = $('.faces');
+    $faces.text('😋');
+    setTimeout(facesReturning, 200);
+  }
+
+  function facesReturning() {
+    const $faces = $('.faces');
+    $faces.text('😀');
+  }
+
+  // house changing functions
+
+  function houseChanging(savings) {
+    const $house = $('.house');
+    const $housePrices = $('.housePrices');
+    const housePrices = (parseInt($housePrices.text()));
+    if (savings >= 0.1*housePrices) {
+      $house.css('font-size', '650%');
+      console.log('1');
+    } else if (savings >= 0.75*0.1*housePrices) {
+      $house.css('font-size', '500%');
+      console.log('2');
+    } else if (savings >= 0.5*0.1*housePrices) {
+      $house.css('font-size', '300%');
+      console.log('3');
+    } else if (savings === 0.25*0.1*housePrices) {
+      $house.css('font-size', '150%');
+      console.log('4');
+    }
+  }
+
+
 
   // scoreboard functions
 
@@ -100,9 +136,11 @@ $(() => {
     const $savings = $('.savings');
     let savings = parseInt($savings.text());
     setInterval(function () {
-      savings += 5;
+      savings += 20;
       $savings.text(savings);
+      houseChanging(savings);
       winSavings(savings);
+
     }, 20);
   }
 

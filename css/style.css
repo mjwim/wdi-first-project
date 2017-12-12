@@ -44,7 +44,7 @@ aside {
 }
 
 .playerArea {
-  background-color: yellow;
+  background-color: white;
   display: block;
   width: 100px;
   height: 400px;
@@ -53,7 +53,7 @@ aside {
 }
 
 .player {
-  background-color: dodgerblue;
+  background-color: white;
   display: block;
   width: 100px;
   height: 100px;
@@ -61,7 +61,7 @@ aside {
 }
 
 .foodArea {
-  background-color: pink;
+  background-color: white;
   display: block;
   width: 700px;
   height: 400px;
@@ -70,7 +70,7 @@ aside {
   float: right;
 }
 .food {
-  background-color: black;
+  background-color: white;
   background-size: 100%;
   display: block;
   width: 100px;
@@ -78,7 +78,6 @@ aside {
   left: 600px;
   top: 200px;
   position: absolute;
-  border-radius: 10%;
 }
 
 .avocado {
@@ -101,4 +100,13 @@ aside {
 
 .scoreBoard {
   border: solid 3px green;
+}
+
+.faces {
+  font-size: 600%;
+}
+
+.house {
+  font-size: 50%;
+  text-align: center;
 }
