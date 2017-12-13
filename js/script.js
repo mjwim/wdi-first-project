@@ -16,6 +16,7 @@ $(() => {
   const housePriceRiseRate = parseInt(level.housePriceRiseRate);
   const foodCreationRate = parseInt(level.foodCreationRate);
   const foodMoveSpeed = parseInt(level.foodMoveSpeed);
+  let playerTopDisplacement = 0;
   let savings = 1000;
   let housePrices = 100000;
   let health = 100;
@@ -196,12 +197,15 @@ $(() => {
   $(document).keydown(function(e) {
     const $player = $('.player');
     const playerTop = $player.css('top');
-    console.log(e.which);
-    console.log(playerTop);
-    if (e.which === 38 && playerTop >= '50px') { //up arrow key
-      $player.stop().animate({top: '-=50'});
-    } else if (e.which === 40 && playerTop <= '500px') { //bottom arrow key
-      $player.stop().animate({top: '+=50'});
+    console.log(e.which, `playerTop: ${playerTop}`);
+    if (e.which === 38 && parseFloat(playerTop) >= 50) { //up arrow key
+      playerTopDisplacement -= 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+      console.log($player, playerTopDisplacement);
+    } else if (e.which === 40 && parseFloat(playerTop) <= 350) { //bottom arrow key
+      playerTopDisplacement += 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+      console.log($player, playerTopDisplacement);
     }
   });
 
@@ -244,7 +248,6 @@ $(() => {
   }
 
   $('.playAgainButton').on('click', function() {
-    console.log('winnnnnn');
     $('.youWin').css('display', 'none');
     $('.youLose').css('display', 'none');
     reset();
