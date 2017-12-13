@@ -4,8 +4,7 @@ $(() => {
   const medium = {housePriceRiseRate: '400', foodCreationRate: '1000', foodMoveSpeed: '10'};
   const hard = {housePriceRiseRate: '600', foodCreationRate: '500', foodMoveSpeed: '5'};
   const reality = {housePriceRiseRate: '10000', foodCreationRate: '500', foodMoveSpeed: '5'};
-  let level = reality; //needs to change based on easy/medium/reality button clicked
-
+  let level = easy; //needs to change based on easy/medium/reality button clicked
   const $instructions = $('.instructions');
   const $year = $('.year');
   const $housePrices = $('.housePrices');
@@ -13,15 +12,15 @@ $(() => {
   const $health = $('.health');
   const $foodArea = $('.foodArea');
   const $house = $('.house');
-  const housePriceRiseRate = parseInt(level.housePriceRiseRate);
-  const foodCreationRate = parseInt(level.foodCreationRate);
-  const foodMoveSpeed = parseInt(level.foodMoveSpeed);
+  // const housePriceRiseRate = parseInt(level.housePriceRiseRate);
+  // const foodCreationRate = parseInt(level.foodCreationRate);
+  // const foodMoveSpeed = parseInt(level.foodMoveSpeed);
   let playerTopDisplacement = 0;
   let savings = 1000;
   let housePrices = 100000;
   let health = 100;
   let year = 2017;
-  let gameOver = null;
+  let gameOver = true;
   let $food = null; //this is needed as the moveFood function needs to check what the foodArea div contains (which is all the food elements) or something like that...
 
   function updateName() {
@@ -36,6 +35,19 @@ $(() => {
   $('.startButton').on('click', function() {
     const levelSelected = $(this).text();
     levelSelector(levelSelected);
+  });
+
+  function levelSelector(levelSelected) {
+    const chosenLevel = levelSelected;
+    if (chosenLevel === 'Easy') {
+      level = easy;
+    } else if (chosenLevel === 'Medium') {
+      level = medium;
+    } else if (chosenLevel === 'Hard') {
+      level = hard;
+    } else if (chosenLevel === 'Reality') {
+      level = reality;
+    }
     gameOver = false;
     $instructions.addClass('hide');
     updateName();
@@ -44,10 +56,6 @@ $(() => {
     housePriceRises();
     savingsRises();
     healthFalls();
-  });
-
-  function levelSelector(levelSelected) {
-    level = levelSelected;
   }
 
   function Food(type, top, savings, health) {
@@ -67,14 +75,14 @@ $(() => {
 
   function createNewFood() {
     const timer = setInterval(function () {
-      const avocado = new Food('Avocado', Math.random()*300, -1500, 25);
-      const bakedBeans = new Food('Baked Beans', Math.random()*300, -100, 5);
+      const avocado = new Food('Avocado', Math.random()*300, -1000, 3);
+      const bakedBeans = new Food('Baked Beans', Math.random()*300, -100, 1);
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
       clear(timer);
       appendNewFood(newRandomFood);
-    }, foodCreationRate);
+    }, parseInt(level.foodCreationRate));
   }
 
   function appendNewFood(newRandomFood) {
@@ -90,7 +98,7 @@ $(() => {
     if (leftFood <= '0px') {
       collisionDetection();
     }
-    $food.animate({left: '-=10px'}, foodMoveSpeed, 'swing', moveFood);
+    $food.animate({left: '-=10px'}, parseInt(level.foodMoveSpeed), 'swing', moveFood);
   }
 
   //collision detection function
@@ -147,7 +155,7 @@ $(() => {
 
   function housePriceRises() {
     const timer = setInterval(function () {
-      housePrices += housePriceRiseRate;
+      housePrices += parseInt(level.housePriceRiseRate);
       $housePrices.text(housePrices);
       clear(timer);
     }, 100);
@@ -155,12 +163,12 @@ $(() => {
 
   function savingsRises() {
     const timer = setInterval(function () {
-      savings += 100;
+      savings += 1000;
       $savings.text(savings);
       houseChanging(savings);
       winSavings(savings);
       clear(timer);
-    }, 100);
+    }, 1000);
   }
 
   function healthFalls() {
@@ -171,7 +179,7 @@ $(() => {
       loseHealth(healthNew);
       health = healthNew;
       clear(timer);
-    }, 500);
+    }, 250);
   }
 
   function impactOnHealthAndSavings(h, s) {
@@ -191,21 +199,17 @@ $(() => {
 
   // player area functions
 
-  // player move up and down with UP and DOWN keys - Need to stop it from exiting area
-  console.log($('.player').css('top'));
+  // player move up and down with UP and DOWN keys
 
   $(document).keydown(function(e) {
     const $player = $('.player');
     const playerTop = $player.css('top');
-    console.log(e.which, `playerTop: ${playerTop}`);
     if (e.which === 38 && parseFloat(playerTop) >= 50) { //up arrow key
       playerTopDisplacement -= 50;
       $player.css('top', `${playerTopDisplacement}px`);
-      console.log($player, playerTopDisplacement);
     } else if (e.which === 40 && parseFloat(playerTop) <= 350) { //bottom arrow key
       playerTopDisplacement += 50;
       $player.css('top', `${playerTopDisplacement}px`);
-      console.log($player, playerTopDisplacement);
     }
   });
 
@@ -220,8 +224,8 @@ $(() => {
   function loseHealth(health) {
     if (health <= 0 || year === 2100) {
       gameOver = true;
+      $foodArea.empty();
       $('.youLose').css('display', 'inline');
-      console.log('You have died');
     }
   }
 
@@ -230,6 +234,7 @@ $(() => {
     const year = $year.text();
     if (savings >= 0.1*housePrices) {
       gameOver = true;
+      $foodArea.empty();
       updateHighScores(year);
       $('.youWin').css('display', 'inline');
       console.log(`You win, score = ${year}`);
@@ -254,7 +259,6 @@ $(() => {
   });
 
   function reset() {
-    $foodArea.empty();
     housePrices = 100000;
     $housePrices.text(housePrices);
     savings = 1000;

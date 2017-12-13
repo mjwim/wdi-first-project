@@ -230,9 +230,9 @@ p.instructionsDetail {
   display: none;
 }
 
-button.playAgain {
+.playAgainButton {
   width: 40%;
-  height: 10%;
+  height: 20%;
 }
 
 p.youLoseDetail {
