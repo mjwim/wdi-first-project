@@ -198,6 +198,50 @@ p.instructionsDetail {
   font-weight: normal;
 }
 
+.youLose {
+  position: absolute;
+  margin: 0 auto;
+  top: 15%;
+  left: 15%;
+  height: 70%;
+  width: 70%;
+  border: solid 5px green;
+  background-color: #e9f1c3;
+  color: grey;
+  text-align: center;
+  font-size: 250%;
+  font-weight: bold;
+  display: none;
+}
+
+.youWin {
+  position: absolute;
+  margin: 0 auto;
+  top: 15%;
+  left: 15%;
+  height: 70%;
+  width: 70%;
+  border: solid 5px green;
+  background-color: #e9f1c3;
+  color: grey;
+  text-align: center;
+  font-size: 250%;
+  font-weight: bold;
+  display: none;
+}
+
+button.playAgain {
+  width: 40%;
+  height: 10%;
+}
+
+p.youLoseDetail {
+  color: grey;
+  text-align: center;
+  font-size: 55%;
+  font-weight: normal;
+  position: absolute;
+}
 
 .hide {
   display: none;

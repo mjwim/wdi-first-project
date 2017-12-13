@@ -4,7 +4,7 @@ $(() => {
   const medium = {housePriceRiseRate: '400', foodCreationRate: '1000', foodMoveSpeed: '10'};
   const hard = {housePriceRiseRate: '600', foodCreationRate: '500', foodMoveSpeed: '5'};
   const reality = {housePriceRiseRate: '10000', foodCreationRate: '500', foodMoveSpeed: '5'};
-  const level = medium; //needs to change based on easy/medium/reality button clicked
+  let level = reality; //needs to change based on easy/medium/reality button clicked
 
   const $instructions = $('.instructions');
   const $year = $('.year');
@@ -26,15 +26,15 @@ $(() => {
   function updateName() {
     const $playerName = $('.playerName');
     let playerNameInput = document.getElementById('playerNameInput').value;
-    console.log(playerNameInput);
     if (!playerNameInput) {
       playerNameInput = 'Anonymous';
-      console.log(playerNameInput);
     }
     $playerName.text(playerNameInput + ': ');
   }
 
-  $('button').on('click', function() {
+  $('.startButton').on('click', function() {
+    const levelSelected = $(this).text();
+    levelSelector(levelSelected);
     gameOver = false;
     $instructions.addClass('hide');
     updateName();
@@ -44,6 +44,10 @@ $(() => {
     savingsRises();
     healthFalls();
   });
+
+  function levelSelector(levelSelected) {
+    level = levelSelected;
+  }
 
   function Food(type, top, savings, health) {
     if(!(this instanceof Food)) {
@@ -212,8 +216,8 @@ $(() => {
   function loseHealth(health) {
     if (health <= 0 || year === 2100) {
       gameOver = true;
+      $('.youLose').css('display', 'inline');
       console.log('You have died');
-      reset();
     }
   }
 
@@ -223,8 +227,8 @@ $(() => {
     if (savings >= 0.1*housePrices) {
       gameOver = true;
       updateHighScores(year);
+      $('.youWin').css('display', 'inline');
       console.log(`You win, score = ${year}`);
-      reset();
     }
   }
 
@@ -238,6 +242,13 @@ $(() => {
       clearInterval(timer);
     }
   }
+
+  $('.playAgainButton').on('click', function() {
+    console.log('winnnnnn');
+    $('.youWin').css('display', 'none');
+    $('.youLose').css('display', 'none');
+    reset();
+  });
 
   function reset() {
     $foodArea.empty();
