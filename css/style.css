@@ -177,7 +177,6 @@ input {
   margin: 0 auto;
   top: 15%;
   left: 15%;
-  /*height: 70%;*/
   width: 70%;
   border: solid 5px green;
   background-color: #e9f1c3;
@@ -198,10 +197,10 @@ p.instructionsDetail {
 .youLose {
   position: absolute;
   margin: 0 auto;
-  top: 15%;
+  top: 30%;
   left: 15%;
-  height: 70%;
   width: 70%;
+  padding: 5%;
   border: solid 5px green;
   background-color: #e9f1c3;
   color: grey;
@@ -214,9 +213,9 @@ p.instructionsDetail {
 .youWin {
   position: absolute;
   margin: 0 auto;
-  top: 15%;
+  top: 30%;
   left: 15%;
-  height: 70%;
+  padding: 5%;
   width: 70%;
   border: solid 5px green;
   background-color: #e9f1c3;
@@ -248,10 +247,6 @@ p.youLoseDetail {
   color: grey;
 }
 
-.levels {
-  height: 50px;
-}
-
 .start {
   position: absolute;
   left: 40%;
@@ -272,6 +267,43 @@ p.youLoseDetail {
   margin: 0 auto;
   color: grey;
 }
+
+@media screen and (max-width: 1200px) {
+
+.gameArea {
+  width: 700px;
+  }
+
+.foodArea {
+  width: 600px;
+  }
+
+.right {
+  width: 200px;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+
+.gameArea {
+  width: 600px;
+  }
+.foodArea {
+  width: 500px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+.gameArea {
+  width: 500px;
+}
+.foodArea {
+  width: 400px;
+  }
+}
+
 
 @media screen and (orientation: portrait) {
   .wrapper {

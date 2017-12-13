@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Avocado or House?</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-    <script type="text/javascript" src="js/script.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <header>
-      <h1>Avocado or House?</h1>
-    </header>
-<main>
-  <section class="left">
+<head>
+  <meta charset="utf-8">
+  <title>Avocado or House?</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+  <script type="text/javascript" src="js/script.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Avocado or House?</h1>
+  </header>
+  <main>
+    <section class="left">
       <div class="gameArea">
-      <div class="playerArea">
-        <div class="player"><span class="faces">😀</span>
+        <div class="playerArea">
+          <div class="player"><span class="faces">😀</span>
+          </div>
+        </div>
+        <div class="foodArea">
         </div>
       </div>
-      <div class="foodArea">
+    </section>
+    <aside class="right">
+      <div class="scoreboard">
+        <div class="scores">
+          <h2>Score</h2>
+          <p> <span class='playerName'></span><span class="highScore"></span></p>
+        </div>
+        <h2>Scoreboard</h2>
+        <h3>House prices 🏠</h3>
+        <p>£ <span class="housePrices">100000</span></p>
+        <h3>Savings 💷 </h3>
+        <p>£<span class="savings">1000</span></p>
+        <h3>Health ❤️:</h3>
+        <p><span class="health">100</span>%</p>
+        <h3>Year 📅:</h3>
+        <p class="year">2017</p>
       </div>
+      <div class="houseBuilder">
+        <h2></h2>
+        <div class="house">🏠</div>
       </div>
-  </section>
-  <aside class="right">
-<div class="scoreboard">
-  <div class="scores">
-    <h2>Score</h2>
-    <p> <span class='playerName'></span><span class="highScore"></span></p>
-  </div>
-  <h2>Scoreboard</h2>
-  <h3>House prices 🏠</h3>
-  <p>£ <span class="housePrices">100000</span></p>
-<h3>Savings 💷 </h3>
-<p>£<span class="savings">1000</span></p>
-<h3>Health ❤️:</h3>
-<p><span class="health">100</span>%</p>
-<h3>Year 📅:</h3>
-<p class="year">2017</p>
-</div>
-<div class="houseBuilder">
-  <h2></h2>
-  <div class="house">🏠</div>
-</div>
-</aside>
-<div class="instructions">
-    Instructions
-    <p class="instructionsDetail"> As everyone knows, millenials cannot afford to buy a house because they are too busy squandering their cash on avocados. Avoid the avocados with ⬆️ & ⬇️, save for your deposit (you need 10%) and see that first house getting closer to you. But be careful, house prices are rising fast and you still need to eat!. A few years of beans on toast should do the trick and you will be in your new house in no time....</br></br>
-    Enter your name and pick your level to start
-</p>
-<input type="text" placeholder="name" id="playerNameInput">
-<div class="levels">
-<button type="button" class="startButton easy" name="easy">Easy</button>
-<button type="button" class="startButton medium" name="medium">Medium</button>
-<button type="button" class="startButton hard" name="hard">Hard</button>
-<button type="button" class="startButton reality" name="reality">Reality</button>
-</div>
-<div class="leaderboard">
-  <h2 class="leaderboardHeading">High Scores</h2>
-  <ul>
-    <li class="highScores">🥇 Player 1: 2018</li>
-    <li class="highScores">🥈 Player 2: 2029</li>
-    <li class="highScores">🥉 Player 3: 2045</li>
-  </ul>
-</div>
-</div>
-<div class="youLose">
-    <p class="youLoseMessage">You lose</p>
-    <button type="button" class="playAgainButton" name="playAgain">Play again</button>
-</div>
-<div class="youWin">
-    <p class="youLoseMessage">You win</p>
-    <button type="button" class="playAgainButton" name="playAgain">Play again</button>
-</div>
-</main>
-<footer>
-  <ul>
-    <li>About</li>
-    <li>Terms & Conditions</li>
-    <li class='copyright'>©️ 2017</li>
-  </ul>
-</footer>
-  </body>
+    </aside>
+    <div class="instructions">
+      Instructions
+      <p class="instructionsDetail"> As everyone knows, millenials cannot afford to buy a house because they are too busy squandering their cash on avocados. Avoid the avocados with ⬆️ & ⬇️, save for your deposit (you need 10%) and see that first house getting closer to you. But be careful, house prices are rising fast and you still need to eat!. A few years of beans on toast should do the trick and you will be in your new house in no time....</br></br>
+        Enter your name and pick your level to start
+      </p>
+      <input type="text" placeholder="name" id="playerNameInput">
+      <div class="levels">
+        <button type="button" class="startButton easy" name="easy">Easy</button>
+        <button type="button" class="startButton medium" name="medium">Medium</button>
+        <button type="button" class="startButton hard" name="hard">Hard</button>
+        <button type="button" class="startButton reality" name="reality">Reality</button>
+      </div>
+      <div class="leaderboard">
+        <h2 class="leaderboardHeading">High Score</h2>
+        <ul>
+          <li class="highScores">🥇<span class="bestPlayer"></span><span class="bestScore"></span></li>
+          <!-- <li class="highScores">🥈 Player 2: 2029</li> -->
+          <!-- <li class="highScores">🥉 Player 3: 2045</li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="youLose">
+      <p class="youLoseMessage">You lose</p>
+      <button type="button" class="playAgainButton" name="playAgain">Play again</button>
+    </div>
+    <div class="youWin">
+      <p class="youLoseMessage">You win</p>
+      <button type="button" class="playAgainButton" name="playAgain">Play again</button>
+    </div>
+  </main>
+  <footer>
+    <ul>
+      <li>About</li>
+      <li>Terms & Conditions</li>
+      <li class='copyright'>©️ 2017</li>
+    </ul>
+  </footer>
+</body>
 </html>

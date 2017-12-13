@@ -237,13 +237,27 @@ $(() => {
       $foodArea.empty();
       updateHighScores(year);
       $('.youWin').css('display', 'inline');
-      console.log(`You win, score = ${year}`);
     }
   }
 
   function updateHighScores(year) {
-    const $highScore = $('.highScore');
-    $highScore.text(year);
+    const $bestScore = $('.bestScore');
+    const $bestPlayer = $('.playerName');
+    const bestPlayer = $bestPlayer.text();
+    const score = parseInt(year);
+    const bestScore = localStorage.getItem('bestscore');
+    if(bestScore !== null){
+      if (score < bestScore) {
+        localStorage.setItem('bestScore', score);
+        localStorage.setItem('bestPlayer', bestPlayer);
+      }
+    } else {
+      localStorage.setItem('bestScore', score);
+      localStorage.setItem('bestPlayer', bestPlayer);
+    }
+    $bestScore.text(year);
+    const $leaderboardBestPlayer = $('.bestPlayer');
+    $leaderboardBestPlayer.text(bestPlayer);
   }
 
   function clear(timer) {
