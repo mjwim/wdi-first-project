@@ -9,12 +9,9 @@ body {
   background-color: #c6d47b;
 }
 
-nav {
-  height: 200%;
-}
-
 main {
   margin: 0 auto;
+  max-width: 1100px;
 }
 
 h1 {
@@ -180,7 +177,7 @@ input {
   margin: 0 auto;
   top: 15%;
   left: 15%;
-  height: 70%;
+  /*height: 70%;*/
   width: 70%;
   border: solid 5px green;
   background-color: #e9f1c3;
@@ -274,4 +271,19 @@ p.youLoseDetail {
   text-align: center;
   margin: 0 auto;
   color: grey;
+}
+
+@media screen and (orientation: portrait) {
+  .wrapper {
+    display: none;
+  }
+  .message {
+    display: block;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .message {
+    display: none;
+  }
 }
