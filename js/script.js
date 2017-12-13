@@ -1,7 +1,10 @@
 $(() => {
 
-  let gameOver = null;
-  let $food = null; //this is needed as the moveFood function needs to check what the foodArea div contains (which is all the food elements) or something like that...
+  const easy = {housePriceRiseRate: '200', foodCreationRate: '1500', foodMoveSpeed: '20'};
+  const medium = {housePriceRiseRate: '400', foodCreationRate: '1000', foodMoveSpeed: '10'};
+  const hard = {housePriceRiseRate: '600', foodCreationRate: '500', foodMoveSpeed: '5'};
+  const reality = {housePriceRiseRate: '10000', foodCreationRate: '500', foodMoveSpeed: '5'};
+  const level = medium; //needs to change based on easy/medium/reality button clicked
 
   const $instructions = $('.instructions');
   const $year = $('.year');
@@ -10,19 +13,25 @@ $(() => {
   const $health = $('.health');
   const $foodArea = $('.foodArea');
   const $house = $('.house');
+  const housePriceRiseRate = parseInt(level.housePriceRiseRate);
+  const foodCreationRate = parseInt(level.foodCreationRate);
+  const foodMoveSpeed = parseInt(level.foodMoveSpeed);
   let savings = 1000;
   let housePrices = 100000;
   let health = 100;
   let year = 2017;
-
+  let gameOver = null;
+  let $food = null; //this is needed as the moveFood function needs to check what the foodArea div contains (which is all the food elements) or something like that...
 
   function updateName() {
-    let playerName = prompt('What is your name?');
     const $playerName = $('.playerName');
-    if (!playerName) {
-      playerName = 'Anonymous';
+    let playerNameInput = document.getElementById('playerNameInput').value;
+    console.log(playerNameInput);
+    if (!playerNameInput) {
+      playerNameInput = 'Anonymous';
+      console.log(playerNameInput);
     }
-    $playerName.text(playerName + ': ');
+    $playerName.text(playerNameInput + ': ');
   }
 
   $('button').on('click', function() {
@@ -60,7 +69,7 @@ $(() => {
       const newRandomFood = foodOptionsArray[randomNumber];
       clear(timer);
       appendNewFood(newRandomFood);
-    }, 1500);
+    }, foodCreationRate);
   }
 
   function appendNewFood(newRandomFood) {
@@ -76,7 +85,7 @@ $(() => {
     if (leftFood <= '0px') {
       collisionDetection();
     }
-    $food.animate({left: '-=10px'}, 50, 'swing', moveFood);
+    $food.animate({left: '-=10px'}, foodMoveSpeed, 'swing', moveFood);
   }
 
   //collision detection function
@@ -133,7 +142,7 @@ $(() => {
 
   function housePriceRises() {
     const timer = setInterval(function () {
-      housePrices += 200;
+      housePrices += housePriceRiseRate;
       $housePrices.text(housePrices);
       clear(timer);
     }, 100);
@@ -157,7 +166,7 @@ $(() => {
       loseHealth(healthNew);
       health = healthNew;
       clear(timer);
-    }, 1000);
+    }, 500);
   }
 
   function impactOnHealthAndSavings(h, s) {
@@ -178,19 +187,17 @@ $(() => {
   // player area functions
 
   // player move up and down with UP and DOWN keys - Need to stop it from exiting area
+  console.log($('.player').css('top'));
 
   $(document).keydown(function(e) {
-    switch (e.which) {
-      case 38:
-        $('.player').stop().animate({
-          top: '-=50'
-        }); //up arrow key
-        break;
-      case 40:
-        $('.player').stop().animate({
-          top: '+=50'
-        }); //bottom arrow key
-        break;
+    const $player = $('.player');
+    const playerTop = $player.css('top');
+    console.log(e.which);
+    console.log(playerTop);
+    if (e.which === 38 && playerTop >= '50px') { //up arrow key
+      $player.stop().animate({top: '-=50'});
+    } else if (e.which === 40 && playerTop <= '500px') { //bottom arrow key
+      $player.stop().animate({top: '+=50'});
     }
   });
 
@@ -203,9 +210,9 @@ $(() => {
   }
 
   function loseHealth(health) {
-    if (health <= 0) {
+    if (health <= 0 || year === 2100) {
       gameOver = true;
-      console.log('you lose');
+      console.log('You have died');
       reset();
     }
   }
@@ -243,6 +250,7 @@ $(() => {
     year = 2017;
     $year.text(health);
     $instructions.removeClass('hide');
+    $house.css('font-size', '100%');
   }
 
 });

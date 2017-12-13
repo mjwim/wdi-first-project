@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Poiret One', cursive;
-  color: white;
+  color: grey;
   /*border: solid 2px red;*/
 }
 
@@ -28,7 +28,7 @@ h2 {
 }
 
 h3 {
-  color: #e6e2e2;
+  color: grey;
   font-weight: bold;
   font-size: 125%;
   padding: 2px;
@@ -37,7 +37,7 @@ h3 {
 }
 
 p {
-  color: white;
+  color: grey;
   font-weight: bold;
   font-size: 100%;
   padding: 2px;
@@ -45,6 +45,9 @@ p {
   text-align: center;
 }
 
+ul{
+  padding-left: 0;
+}
 ul li {
   display: inline-block;
   font-size: 200%;
@@ -53,6 +56,7 @@ ul li {
 footer {
   position: absolute;
   bottom: 0;
+  font-size: 50%;
 }
 
 aside {
@@ -64,7 +68,17 @@ button {
   font-size: 100%;
   width: 23%;
   padding: 0;
-  height: 40px;
+  height: 100%;
+  color: white;
+}
+
+input {
+  font-size: 100%;
+  color: black;
+  width: 50%;
+  padding: 0;
+  height: 10%;
+  margin: 1% 0 2% 0;
 }
 
 .gameArea {
@@ -81,7 +95,7 @@ button {
   display: block;
   width: 100px;
   height: 500px;
-  position: absolute;
+  position: relative;
   float: left;
 }
 
@@ -132,6 +146,7 @@ button {
   float: right;
   border: solid 3px green;
   width: 25%;
+  background-color: #e9f1c3;
 }
 
 .scoreboard {
@@ -179,7 +194,7 @@ button {
 p.instructionsDetail {
   color: grey;
   text-align: center;
-  font-size: 75%;
+  font-size: 55%;
   font-weight: normal;
 }
 
@@ -189,7 +204,7 @@ p.instructionsDetail {
 }
 
 .playerName {
-  color: #e6e2e2;
+  color: grey;
 }
 
 .levels {
@@ -200,4 +215,19 @@ p.instructionsDetail {
   position: absolute;
   left: 40%;
   bottom: 5%;
+}
+
+.leaderboardHeading {
+  color: grey;
+  font-weight: bold;
+}
+.leaderboard {
+  font-size: 50%;
+}
+.highScores {
+  font-size: 100%;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  color: grey;
 }
