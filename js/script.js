@@ -1,10 +1,17 @@
 $(() => {
 
+//global variables
+
+//level variables
+
   const easy = {housePriceRiseRate: '200', foodCreationRate: '1500', foodMoveSpeed: '20'};
   const medium = {housePriceRiseRate: '400', foodCreationRate: '1000', foodMoveSpeed: '10'};
   const hard = {housePriceRiseRate: '600', foodCreationRate: '500', foodMoveSpeed: '5'};
   const reality = {housePriceRiseRate: '10000', foodCreationRate: '500', foodMoveSpeed: '5'};
-  let level = easy; //needs to change based on easy/medium/reality button clicked
+  let level = easy;
+
+  // DOM variables
+
   const $instructions = $('.instructions');
   const $year = $('.year');
   const $housePrices = $('.housePrices');
@@ -12,16 +19,24 @@ $(() => {
   const $health = $('.health');
   const $foodArea = $('.foodArea');
   const $house = $('.house');
-  // const housePriceRiseRate = parseInt(level.housePriceRiseRate);
-  // const foodCreationRate = parseInt(level.foodCreationRate);
-  // const foodMoveSpeed = parseInt(level.foodMoveSpeed);
+  let $food = null;
+
+  // player movement variables
+
   let playerTopDisplacement = 0;
+
+  // game stats variables
+
   let savings = 1000;
   let housePrices = 100000;
   let health = 100;
   let year = 2017;
+
+  // game status variable
+
   let gameOver = true;
-  let $food = null; //this is needed as the moveFood function needs to check what the foodArea div contains (which is all the food elements) or something like that...
+
+  // setup functions
 
   function updateName() {
     const $playerName = $('.playerName');
@@ -58,12 +73,14 @@ $(() => {
     healthFalls();
   }
 
-  function Food(type, top, savings, health) {
+  // food setup functions
+
+  function Food(type, top, left, savings, health) {
     if(!(this instanceof Food)) {
-      return new Food(type, top, savings, health);
+      return new Food(type, top, left, savings, health);
     }
     this.type = type;
-    this.css = {top: top};
+    this.css = {top: top, left: left};
     this.savings = savings;
     this.health = health;
     if(this.type === 'Avocado'){
@@ -75,8 +92,10 @@ $(() => {
 
   function createNewFood() {
     const timer = setInterval(function () {
-      const avocado = new Food('Avocado', Math.random()*300, -1000, 3);
-      const bakedBeans = new Food('Baked Beans', Math.random()*300, -100, 1);
+      const $left = $('.foodArea');
+      const foodStartingPosition = parseInt($left.css('width'));
+      const avocado = new Food('Avocado', Math.random()*300, foodStartingPosition-100,  -1000, 3);
+      const bakedBeans = new Food('Baked Beans', Math.random()*300, foodStartingPosition-100, -100, 1);
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
@@ -86,12 +105,13 @@ $(() => {
   }
 
   function appendNewFood(newRandomFood) {
-    const newFood = $('<div/>', {class: newRandomFood.class, css: {top: newRandomFood.css.top}, 'data-savings': newRandomFood.savings, 'data-health': newRandomFood.health });
+    const newFood = $('<div/>', {class: newRandomFood.class, css: {top: newRandomFood.css.top, left: newRandomFood.css.left}, 'data-savings': newRandomFood.savings, 'data-health': newRandomFood.health });
     $foodArea.append(newFood);
     moveFood();
   }
 
-  // food area functions
+  // food area function
+
   function moveFood() {
     $food = $('.food');
     const leftFood = ($food.css('left'));
@@ -99,6 +119,38 @@ $(() => {
       collisionDetection();
     }
     $food.animate({left: '-=10px'}, parseInt(level.foodMoveSpeed), 'swing', moveFood);
+  }
+
+  function removeFood() {
+    const $foodArea = $('.foodArea');
+    $foodArea.find('div').first().remove();
+  }
+
+  // player area functions
+
+  $(document).keydown(function(e) {
+    const $player = $('.player');
+    const playerTop = $player.css('top');
+    if (e.which === 38 && parseFloat(playerTop) >= 50) { //up arrow key
+      playerTopDisplacement -= 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+    } else if (e.which === 40 && parseFloat(playerTop) <= 350) { //bottom arrow key
+      playerTopDisplacement += 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+    }
+  });
+
+  //face changing functions
+
+  function facesEating() {
+    const $faces = $('.faces');
+    $faces.text('😋');
+    setTimeout(facesReturning, 200);
+  }
+
+  function facesReturning() {
+    const $faces = $('.faces');
+    $faces.text('😀');
   }
 
   //collision detection function
@@ -119,25 +171,7 @@ $(() => {
     removeFood();
   }
 
-  function removeFood() {
-    const $foodArea = $('.foodArea');
-    $foodArea.find('div').first().remove();
-  }
-
-  //face changing functions
-
-  function facesEating() {
-    const $faces = $('.faces');
-    $faces.text('😋');
-    setTimeout(facesReturning, 200);
-  }
-
-  function facesReturning() {
-    const $faces = $('.faces');
-    $faces.text('😀');
-  }
-
-  // house changing functions
+  // house changing function
 
   function houseChanging(savings) {
     if (savings >= 0.1*housePrices) {
@@ -197,22 +231,6 @@ $(() => {
     $health.text(healthMax);
   }
 
-  // player area functions
-
-  // player move up and down with UP and DOWN keys
-
-  $(document).keydown(function(e) {
-    const $player = $('.player');
-    const playerTop = $player.css('top');
-    if (e.which === 38 && parseFloat(playerTop) >= 50) { //up arrow key
-      playerTopDisplacement -= 50;
-      $player.css('top', `${playerTopDisplacement}px`);
-    } else if (e.which === 40 && parseFloat(playerTop) <= 350) { //bottom arrow key
-      playerTopDisplacement += 50;
-      $player.css('top', `${playerTopDisplacement}px`);
-    }
-  });
-
   function yearCounter() {
     const timer = setInterval(function () {
       year += 1;
@@ -220,6 +238,8 @@ $(() => {
       clear(timer);
     }, 1000);
   }
+
+  // Game Over functions
 
   function loseHealth(health) {
     if (health <= 0 || year === 2100) {
@@ -260,11 +280,14 @@ $(() => {
     $leaderboardBestPlayer.text(bestPlayer);
   }
 
+  // stop running functions function
   function clear(timer) {
     if (gameOver) {
       clearInterval(timer);
     }
   }
+
+  // reset functions
 
   $('.playAgainButton').on('click', function() {
     $('.youWin').css('display', 'none');
