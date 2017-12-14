@@ -36,10 +36,6 @@ $(() => {
 
   let gameOver = true;
 
-  //audio variables
-
-  const audio = $('#audio');
-
   // setup functions
 
   function updateName() {
@@ -75,7 +71,33 @@ $(() => {
     housePriceRises();
     savingsRises();
     healthFalls();
+    musicOn();
     detectswipe('player', mobileMoveSwipe);
+  }
+
+  // music function
+
+  function musicOn(){
+    const $music =$('#music')[0];
+    $music.src = './audio/daFunkLoop.mp3';
+    $music.play();
+  }
+
+  function gameOverSound(){
+    const $gameOverSound =$('#gameOverSound')[0];
+    $gameOverSound.src = './audio/gameOver.mp3';
+    $gameOverSound.play();
+  }
+
+  function gameWinSound(){
+    const $gameWinSound =$('#gameWinSound')[0];
+    $gameWinSound.src = './audio/win.mp3';
+    $gameWinSound.play();
+  }
+
+  function musicOff(){
+    const $music =$('#music')[0];
+    $music.pause();
   }
 
   // food setup functions
@@ -171,7 +193,7 @@ $(() => {
     const minY = 40;  //min y swipe for vertical swipe
     const maxY = 50;  //max y difference for horizontal swipe
     let direc = '';
-    const ele = document.getElementByClass(el);
+    const ele = document.getElementsByClassName(el);
     ele.addEventListener('touchstart',function(e){
       const t = e.touches[0];
       swipeDet.sX = t.screenX;
@@ -206,15 +228,21 @@ $(() => {
   //face changing functions
 
   function facesEating() {
-    // $.playSound('/Users/matthewwallis/development/first-app/audio/bite-hq.wav');
     const $faces = $('.faces');
     $faces.text('😋');
+    munchingSound();
     setTimeout(facesReturning, 200);
   }
 
   function facesReturning() {
     const $faces = $('.faces');
     $faces.text('😀');
+  }
+
+  function munchingSound(){
+    const $audio =$('#audio')[0];
+    $audio.src = './audio/bite-hq.wav';
+    $audio.play();
   }
 
   //collision detection function
@@ -309,6 +337,8 @@ $(() => {
     if (health <= 0 || year === 2100) {
       gameOver = true;
       $foodArea.empty();
+      musicOff();
+      gameOverSound();
       $('.youLose').css('display', 'inline');
     }
   }
@@ -319,6 +349,8 @@ $(() => {
     if (savings >= 0.1*housePrices) {
       gameOver = true;
       $foodArea.empty();
+      musicOff();
+      gameWinSound();
       updateHighScores(year);
       $('.youWin').css('display', 'inline');
     }
