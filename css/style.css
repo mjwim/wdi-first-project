@@ -126,12 +126,12 @@ input {
 }
 
 .avocado {
-  background-image: url('/Users/matthewwallis/development/first-app/images/avocadoImage.png');
+  background-image: url('../images/avocadoImage.png');
   background-color: inherit;
 }
 
 .bakedBeans {
-  background-image: url('/Users/matthewwallis/development/first-app/images/bakedBeansImage.png');
+  background-image: url('../images/bakedBeansImage.png');
   background-color: inherit;
 }
 

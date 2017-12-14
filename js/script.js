@@ -36,6 +36,10 @@ $(() => {
 
   let gameOver = true;
 
+  //audio variables
+
+  const audio = $('#audio');
+
   // setup functions
 
   function updateName() {
@@ -202,6 +206,7 @@ $(() => {
   //face changing functions
 
   function facesEating() {
+    // $.playSound('/Users/matthewwallis/development/first-app/audio/bite-hq.wav');
     const $faces = $('.faces');
     $faces.text('😋');
     setTimeout(facesReturning, 200);
