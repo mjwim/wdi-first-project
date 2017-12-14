@@ -116,6 +116,7 @@ input {
 .food {
   background-color: white;
   background-size: 100%;
+  background-repeat: no-repeat;
   display: block;
   width: 100px;
   height: 100px;
@@ -147,15 +148,15 @@ input {
 }
 
 .scoreboard {
-  border: solid 1px green;
+  border-bottom: solid 1px green;
 }
 
 .houseBuilder {
-  border: solid 1px green;
+
 }
 
 .scores {
-  border: solid 1px green;
+  border-bottom: solid 1px green;
 }
 
 .faces {
@@ -198,9 +199,9 @@ p.instructionsDetail {
   position: absolute;
   margin: 0 auto;
   top: 30%;
-  left: 15%;
-  width: 70%;
-  padding: 5%;
+  left: 25%;
+  width: 40%;
+  padding: 1%;
   border: solid 5px green;
   background-color: #e9f1c3;
   color: grey;
@@ -214,9 +215,9 @@ p.instructionsDetail {
   position: absolute;
   margin: 0 auto;
   top: 30%;
-  left: 15%;
-  padding: 5%;
-  width: 70%;
+  left: 25%;
+  padding: 1%;
+  width: 40%;
   border: solid 5px green;
   background-color: #e9f1c3;
   color: grey;
@@ -231,12 +232,13 @@ p.instructionsDetail {
   height: 20%;
 }
 
-p.youLoseDetail {
+p.youLoseMessage {
+  margin: 0 auto;
   color: grey;
   text-align: center;
-  font-size: 55%;
+  font-size: 100%;
   font-weight: normal;
-  position: absolute;
+  position: relative;
 }
 
 .hide {
@@ -245,6 +247,8 @@ p.youLoseDetail {
 
 .playerName {
   color: grey;
+  font-size: 200%;
+  font-weight: bolder;
 }
 
 .start {
@@ -268,42 +272,53 @@ p.youLoseDetail {
   color: grey;
 }
 
+.message {
+  display: none;
+}
+
 @media screen and (max-width: 1200px) {
 
-.gameArea {
-  width: 700px;
+  .gameArea {
+    width: 700px;
   }
 
-.foodArea {
-  width: 600px;
+  .foodArea {
+    width: 600px;
   }
 
-.right {
-  width: 200px;
+  .right {
+    width: 200px;
   }
 }
 
 
 @media screen and (max-width: 1000px) {
 
-.gameArea {
-  width: 600px;
+  .gameArea {
+    width: 600px;
   }
-.foodArea {
-  width: 500px;
+  .foodArea {
+    width: 500px;
   }
 }
 
 @media screen and (max-width: 800px) {
 
-.gameArea {
-  width: 500px;
-}
-.foodArea {
-  width: 400px;
+  .gameArea {
+    width: 500px;
+  }
+  .foodArea {
+    width: 400px;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .instructions {
+    top: 0;
   }
 }
-
 
 @media screen and (orientation: portrait) {
   .wrapper {
@@ -315,7 +330,12 @@ p.youLoseDetail {
 }
 
 @media screen and (orientation: landscape) {
-  .message {
+
+  h1 {
     display: none;
+  }
+
+  .instructions {
+    top: 0;
   }
 }

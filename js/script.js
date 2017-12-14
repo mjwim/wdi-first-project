@@ -1,8 +1,8 @@
 $(() => {
 
-//global variables
+  //global variables
 
-//level variables
+  //level variables
 
   const easy = {housePriceRiseRate: '200', foodCreationRate: '1500', foodMoveSpeed: '20'};
   const medium = {housePriceRiseRate: '400', foodCreationRate: '1000', foodMoveSpeed: '10'};
@@ -44,7 +44,7 @@ $(() => {
     if (!playerNameInput) {
       playerNameInput = 'Anonymous';
     }
-    $playerName.text(playerNameInput + ': ');
+    $playerName.text(playerNameInput);
   }
 
   $('.startButton').on('click', function() {
@@ -94,8 +94,8 @@ $(() => {
     const timer = setInterval(function () {
       const $left = $('.foodArea');
       const foodStartingPosition = parseInt($left.css('width'));
-      const avocado = new Food('Avocado', Math.random()*300, foodStartingPosition-100,  -1000, 3);
-      const bakedBeans = new Food('Baked Beans', Math.random()*300, foodStartingPosition-100, -100, 1);
+      const avocado = new Food('Avocado', Math.random()*400, foodStartingPosition-100,  -1000, 3);
+      const bakedBeans = new Food('Baked Beans', Math.random()*400, foodStartingPosition-100, -100, 1);
       const foodOptionsArray = [avocado, bakedBeans];
       const randomNumber = (Math.floor(Math.random()*(foodOptionsArray.length)));
       const newRandomFood = foodOptionsArray[randomNumber];
@@ -132,9 +132,11 @@ $(() => {
     const $player = $('.player');
     const playerTop = $player.css('top');
     if (e.which === 38 && parseFloat(playerTop) >= 50) { //up arrow key
+      e.preventDefault();
       playerTopDisplacement -= 50;
       $player.css('top', `${playerTopDisplacement}px`);
     } else if (e.which === 40 && parseFloat(playerTop) <= 350) { //bottom arrow key
+      e.preventDefault();
       playerTopDisplacement += 50;
       $player.css('top', `${playerTopDisplacement}px`);
     }
@@ -162,9 +164,9 @@ $(() => {
     const $playerOffset = $player.offset();
 
     if ($foodOffset.left <= $playerOffset.left + $player.width() &&
-       $foodOffset.left + $food.width() >= $playerOffset.left &&
-       $foodOffset.top < $playerOffset.top + $player.height() &&
-       $food.height() + $foodOffset.top > $playerOffset.top) {
+    $foodOffset.left + $food.width() >= $playerOffset.left &&
+    $foodOffset.top < $playerOffset.top + $player.height() &&
+    $food.height() + $foodOffset.top > $playerOffset.top) {
       impactOnHealthAndSavings($food.data('health'), $food.data('savings'));
       facesEating();
     }
@@ -263,7 +265,7 @@ $(() => {
   function updateHighScores(year) {
     const $bestScore = $('.bestScore');
     const $bestPlayer = $('.playerName');
-    const bestPlayer = $bestPlayer.text();
+    const bestPlayer = $bestPlayer.text() + ': ';
     const score = parseInt(year);
     const bestScore = localStorage.getItem('bestscore');
     if(bestScore !== null){
