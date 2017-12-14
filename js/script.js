@@ -71,6 +71,7 @@ $(() => {
     housePriceRises();
     savingsRises();
     healthFalls();
+    detectswipe('player', mobileMoveSwipe);
   }
 
   // food setup functions
@@ -141,6 +142,62 @@ $(() => {
       $player.css('top', `${playerTopDisplacement}px`);
     }
   });
+
+  // mobile move by swiping up or down function
+
+  function mobileMoveSwipe(el,direc){
+    const $player = $('.player');
+    const playerTop = $player.css('top');
+    if (direc === 'u' && parseFloat(playerTop) >= 50) { //up swipe
+      playerTopDisplacement -= 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+    } else if (direc === 'd' && parseFloat(playerTop) <= 350) { //down swipe
+      playerTopDisplacement += 50;
+      $player.css('top', `${playerTopDisplacement}px`);
+    }
+  }
+  function detectswipe(el,func) {
+    const swipeDet = new Object();
+    swipeDet.sX = 0;
+    swipeDet.sY = 0;
+    swipeDet.eX = 0;
+    swipeDet.eY = 0;
+    const minX = 20;  //min x swipe for horizontal swipe
+    const maxX = 40;  //max x difference for vertical swipe
+    const minY = 40;  //min y swipe for vertical swipe
+    const maxY = 50;  //max y difference for horizontal swipe
+    let direc = '';
+    const ele = document.getElementByClass(el);
+    ele.addEventListener('touchstart',function(e){
+      const t = e.touches[0];
+      swipeDet.sX = t.screenX;
+      swipeDet.sY = t.screenY;
+    },false);
+    ele.addEventListener('touchmove',function(e){
+      e.preventDefault();
+      const t = e.touches[0];
+      swipeDet.eX = t.screenX;
+      swipeDet.eY = t.screenY;
+    },false);
+    ele.addEventListener('touchend',function(e){
+      e.preventDefault();
+      //horizontal detection
+      if ((((swipeDet.eX - minX > swipeDet.sX) || (swipeDet.eX + minX < swipeDet.sX)) && ((swipeDet.eY < swipeDet.sY + maxY) && (swipeDet.sY > swipeDet.eY - maxY)))) {
+        if(swipeDet.eX > swipeDet.sX) direc = 'r';
+        else direc = 'l';
+      }
+      //vertical detection
+      if ((((swipeDet.eY - minY > swipeDet.sY) || (swipeDet.eY + minY < swipeDet.sY)) && ((swipeDet.eX < swipeDet.sX + maxX) && (swipeDet.sX > swipeDet.eX - maxX)))) {
+        if(swipeDet.eY > swipeDet.sY) direc = 'd';
+        else direc = 'u';
+      }
+
+      if (direc !== '') {
+        if(typeof func === 'function') func(el,direc);
+      }
+      direc = '';
+    },false);
+  }
 
   //face changing functions
 
