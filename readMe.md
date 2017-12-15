@@ -1,53 +1,52 @@
 # Avocado or House Action Game
 
 
-![](/Users/matthewwallis/Desktop/Screen Shot 2017-12-14 at 14.13.14.png)
+![](images/Screen Shot 2017-12-14 at 14.13.14.png)
 
 ### Installation and setup
-Run Locally
-Download or clone the Github repo
 
-### View Online
-View on Heroku
-View on Github
-
+Play on Heroku - https://dry-badlands-75755.herokuapp.com/ <br>
+Download/clone from Github - https://github.com/mjwim/wdi-first-project
 
 **How to play**
 
-![](/Users/matthewwallis/Desktop/Screen Shot 2017-12-14 at 14.16.35.png)
+Follow the instructions and have fun!
 
-**How to download**
+![](images/Screen Shot 2017-12-14 at 14.16.35.png)
 
 **Technologies used**
 
-HMTL5
-CSS3
-Javascript
-jQuery
+HMTL5 <br>
+CSS3 <br>
+Javascript <br>
+jQuery <br>
 
 **Challenges faced**
 
-keeping player within div
-creating random objects and ensurning they enter the game area on the righthand side of the game area
-adding levels
-local storage
+Keeping the player within the player area.
+
+Identifying collisions between divs.
+
+Creating random objects and ensuring they enter the game area on the righthand side of the game area.
+
+Adding levels.
+
+Local storage.
+
+Making the app responsive.
 
 **How next?**
 
-more refactoring
+Refactoring of code to make it as dry as possible.
 
-start small to then build up styles - Use CSS flexbox to ensire the 
+Add functionality to allow swiping to control player on mobile devices.
 
-get audio smoother
-	
-swiping
+Build a high scores table in local storage rather than just one high score.
 
-build a high scores table in local storage rather than just high score
+Add cash feature so you a player can increase savings and have an incentive to try eat/catch the food/cash scrolling across the screen and (with a different sound and face emjoi)
 
-Add cash feature so you can increase savings and have an incentive to try eat/catch the food/cash scrolling across the screen and (with a different sound and face emjoi)
+Randomise rate at which food created/added.
 
-randomise rate at which food created/added
+Let food that has not been eaten go though the game area (rather than disappearing like food that is eaten
 
-let food that is not eating go though the game area (rather than disappearing like food that is eaten
-
-have a scrolling banner at the top of the game area which shows the years passing
+Have a scrolling banner at the top of the game area which shows the years passing
