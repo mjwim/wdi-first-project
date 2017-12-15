@@ -325,10 +325,10 @@ $(() => {
   function loseHealth(health) {
     if (health <= 0 || year === 2100) {
       gameOver = true;
-      $foodArea.empty();
       musicOff();
       musicOn('./audio/gameOver.mp3');
       $('.youLose').css('display', 'inline');
+      $foodArea.empty();
     }
   }
 
@@ -337,11 +337,11 @@ $(() => {
     const year = $year.text();
     if (savings >= 0.1*housePrices) {
       gameOver = true;
-      $foodArea.empty();
       musicOff();
       musicOn('./audio/win.mp3');
       updateHighScores(year);
       $('.youWin').css('display', 'inline');
+      $foodArea.empty();
     }
   }
 

@@ -56,10 +56,6 @@ footer {
   font-size: 50%;
 }
 
-/*aside {
-  width: 200px;
-}*/
-
 button {
   background: green;
   font-size: 100%;
@@ -78,27 +74,18 @@ input {
   margin: 1% 0 2% 0;
 }
 
-.gameArea {
-  background-color: grey;
-  display: block;
-  width: 800px;
-  /*height: 500px;*/
-  position: relative;
-  border-color: green;
-}
-
 .playerArea {
   background-color: #e9f1c3;
   display: block;
-  width: 100px;
+  min-width: 100px;
   height: 500px;
   position: relative;
-  float: left;
 }
 
 .player {
   background-color: inherit;
   display: block;
+  top: 300px;
   width: 100px;
   height: 100px;
   position: absolute;
@@ -107,11 +94,9 @@ input {
 .foodArea {
   background-color: #e9f1c3;
   display: block;
-  width: 910px;
+  width: 100%;
   height: 500px;
-  position: absolute;
-  margin-left: 100px;
-  float: right;
+  position: relative;
 }
 .food {
   background-color: white;
@@ -136,16 +121,12 @@ input {
 }
 
 .left {
-  float: left;
-  border: solid 3px green;
-  flex-grow: 6;
+  flex-grow: 5;
+  display: flex;
+  border-right: solid 1px green;
 }
 
 .right {
-  float: right;
-  border: solid 3px green;
-  width: 25%;
-  background-color: #e9f1c3;
   flex-grow: 1;
 }
 
@@ -153,9 +134,6 @@ input {
   border-bottom: solid 1px green;
 }
 
-.houseBuilder {
-
-}
 
 .scores {
   border-bottom: solid 1px green;
@@ -171,10 +149,6 @@ input {
   height: 120px;
 }
 
-.copyright{
-  float: right;
-}
-
 .instructions {
   position: absolute;
   margin: 0 auto;
@@ -185,7 +159,7 @@ input {
   background-color: #e9f1c3;
   color: grey;
   text-align: center;
-  font-size: 250%;
+  font-size: 200%;
   font-weight: bold;
   padding: 2%;
 }
@@ -280,68 +254,26 @@ p.youLoseMessage {
 
 .flex {
   display: flex;
+  background-color: #e9f1c3;
+  border: solid 3px green;
 }
 
-@media screen and (max-width: 1200px) {
-
-  .gameArea {
-    /*width: 900px;*/
-  }
-
-  .foodArea {
-    width: 700px;
-  }
-
-  .right {
-    /*width: 200px;*/
-  }
-}
-
-
-@media screen and (max-width: 1000px) {
-
-  /*.gameArea {
-    width: 600px;
-  }*/
-  .foodArea {
-    width: 500px;
-  }
-
-  h1 {
-    display: none;
-  }
-
-
-}
-
-@media screen and (max-width: 800px) {
-
-  .gameArea {
-    width: 500px;
-  }
-  .foodArea {
-    width: 400px;
-  }
-
-  h1 {
-    display: none;
-  }
-
-  .instructions {
-    top: 0;
-  }
-}
 
 @media screen and (orientation: portrait) {
+
   .wrapper {
     display: none;
   }
+
   .message {
-    display: block;
+    display: inline;
   }
 }
+@media screen and (max-width: 1000px) and (orientation: landscape) {
 
-@media screen and (max-width: 800px) and (orientation: landscape) {
+  main {
+    max-width: 800px;
+  }
 
   h1 {
     display: none;

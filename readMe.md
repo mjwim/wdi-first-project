@@ -44,6 +44,8 @@ swiping
 
 build a high scores table in local storage rather than just high score
 
+Add cash feature so you can increase savings and have an incentive to try eat/catch the food/cash scrolling across the screen and (with a different sound and face emjoi)
+
 randomise rate at which food created/added
 
 let food that is not eating go though the game area (rather than disappearing like food that is eaten
