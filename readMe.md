@@ -1,7 +1,7 @@
 # Avocado or House Action Game
 
 
-![landing page image](images/Screen Shot 2017-12-14 at 14.13.14.png)
+![landing page image](images/landing_page_image)
 
 ### Installation and setup
 
@@ -12,7 +12,7 @@ Download/clone from Github - https://github.com/mjwim/wdi-first-project
 
 Follow the instructions and have fun!
 
-![game in play image](images/Screen Shot 2017-12-14 at 14.16.35.png)
+![game in play image](game_in_play_image)
 
 **Technologies used**
 
