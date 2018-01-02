@@ -12,7 +12,7 @@ Download/clone from Github - https://github.com/mjwim/wdi-first-project
 
 Follow the instructions and have fun!
 
-![game in play image](game_in_play_image)
+![game in play image](images/game_in_play_image)
 
 **Technologies used**
 
