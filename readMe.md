@@ -5,7 +5,7 @@
 
 ### Installation and setup
 
-Play on Heroku - https://dry-badlands-75755.herokuapp.com/ <br>
+Play on Heroku - https://avocadoorhouse.herokuapp.com/ <br>
 Download/clone from Github - https://github.com/mjwim/wdi-first-project
 
 **How to play**
