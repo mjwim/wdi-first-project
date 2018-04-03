@@ -84,7 +84,7 @@ input {
 .player {
   background-color: inherit;
   display: block;
-  top: 300px;
+  top: 0px;
   width: 100px;
   height: 100px;
   position: absolute;
